@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style type="text/css">
+		.active{
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="app"></div>
+	<div id="app2"></div>
+	<script type="text/javascript" src="src/react.js"></script>
+	<script type="text/javascript" src="src/react-dom.js"></script>
+	<script type="text/javascript" src="src/browser.min.js"></script>
+	<!--
+		1.引入react,js、react-dom.js、browser.min.js
+		2.script标签里是 babel
+		3.创建class模板的时候要大写字母开头,用creatClass({render:function(){return (标签)}})
+		4.只有一个最大的父集
+		5.input标签要有闭合
+		6.标签里的class要写成className,
+		7.用ReactDOM.render(<名字  />,要插入的那个容器)
+	-->
+	<script type="text/babel">
+		let He = React.createClass({
+			render:function(){
+				return (
+					<div>
+						<p className="active">React学习</p>
+						<input type="text" />
+						<button>按钮</button>
+					</div>
+				)
+			}
+			
+		})
+		ReactDOM.render(
+			<He />,
+			document.getElementById('app2')
+		)
+	</script>
+</body>
+</html>
