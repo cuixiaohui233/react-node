@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style type="text/css">
+		.active{
+			color: red;
+		}
+		.red{
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="app"></div>
+	<div id="app2"></div>
+	<script type="text/javascript" src="src/react.js"></script>
+	<script type="text/javascript" src="src/react-dom.js"></script>
+	<script type="text/javascript" src="src/browser.min.js"></script>
+	<!--
+		1.引入react,js、react-dom.js、browser.min.js
+		2.script标签里是 babel
+		3.创建class模板的时候要大写字母开头,用creatClass({render:function(){return (标签)}})
+		4.只有一个最大的父集
+		5.input标签要有闭合
+		6.标签里的class要写成className,
+		7.用ReactDOM.render(<名字  />,要插入的那个容器)
+	-->
+	<script type="text/babel">
+		let HE = React.createClass({
+			getInitialState:function(){
+				return {
+					num:100,
+					arr:[],
+					value:''
+				}
+			},
+			render:function(){
+				var arr = [];
+				arr = this.state.arr.map(function(e,i){
+					if(e === '厉害'){
+					return <li className="red" key={i}>{e}</li>
+				}else{
+					return <li key={i}>{e}</li>
+				}
+
+				})
+				return (
+					<div>
+						<p className="active">React学习</p>
+						<input type="text" id="txt"/>
+						<button onClick={this.fn}>按钮</button>
+						<span>{this.state.num}</span>
+						<ul>{
+							arr
+						}</ul>
+						<p>{this.state.value}</p>
+					</div>
+				)
+			},
+			fn:function(){
+				var num1 = this.state.num;
+				var val = document.getElementById('txt').value;
+				num1 = ++num1;
+				console.log(num1)
+				this.setState({
+					num:num1,
+					arr:['我的','天啊','！','react','太','厉害','了吧'],
+					value:val
+				})
+			}
+		})
+		ReactDOM.render(
+			<HE />,
+			document.getElementById('app2')
+		)
+	</script>
+</body>
+</html>
