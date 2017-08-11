@@ -1,12 +1,15 @@
 import React,{Component} from "react";
 class Li extends Component{
-  change = () => {
+  change = (ev) => {
     // console.log(this.props.id);
-    this.props.changeChild(this.props.id);
+    this.props.changeChecked(this.props.id);
+  }
+  del = () => {
+    this.props.delt(this.props.id)
   }
   render(){
     return(
-      <li className="completed">
+      <li className={this.props.checked?'completed':''}>
           <div className="view">
               <input
                 className="toggle"
@@ -15,7 +18,10 @@ class Li extends Component{
                 onChange={this.change}
               />
               <label>{this.props.txt}</label>
-              <button className="destroy"></button>
+              <button
+                className="destroy"
+                onClick = {this.del}
+              ></button>
           </div>
       </li>
     )
