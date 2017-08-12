@@ -1,5 +1,19 @@
 .side-div{
-  margin-top:50px;
+  width:240px;
+  /*margin-top:50px;*/
+  /*padding-top: 50px;*/
+  height:100%;
+  background-color: #f8f8f8;
+
+}
+.ant-menu{
+  background-color: #f8f8f8;
+}
+.ant-menu-item{
+  background: #f8f8f8;
+}
+.ant-menu-submenu-inline{
+  border-bottom:1px solid #eee;
 }
 span{
   font-size:14px;

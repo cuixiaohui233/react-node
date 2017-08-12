@@ -1,5 +1,6 @@
 import React,{Component} from "react";
-import Li from "./Li";
+// import Li from "./Li";
+import './css/index.css'
 class HeadModel extends Component{
   // constructor(props){
   //   super(props);

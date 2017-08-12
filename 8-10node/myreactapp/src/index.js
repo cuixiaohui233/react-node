@@ -4,8 +4,9 @@ import ReactDOM from 'react-dom';
 // import App from './App';
 import './toduList/css/index.css'
 // import MainModel from './toduList/MainModule.js';
-import HeadModel from './toduList/Sec.js';
-import Li from "./toduList/Li.js"
+import HeadModel from './toduList/Sec';
+import Li from "./toduList/Li"
+import Footli from './toduList/footLi'
 import registerServiceWorker from './registerServiceWorker';
 
 class App extends Component{
@@ -15,7 +16,7 @@ class App extends Component{
     this.state = {
       val:'',
       list:[
-        {id:1,info:'今天不开心',checked:true},
+        {id:1,info:'今天不开心',checked:false},
         {id:2,info:'不为啥，别总问',checked:false}
       ]
     }
@@ -69,6 +70,54 @@ class App extends Component{
       list:list1
     })
   }
+  changeText = (id,val) =>{
+    let {list} = this.state;
+    let list1 = Object.assign(list);
+    list1.forEach((e,i)=>{
+      if(e.id === id && val){
+        e.info = val;
+      }
+    })
+    this.setState({
+      list:list1
+    })
+  }
+  noCheck = () => {
+    // let
+    this.setState({
+      class:'selected'
+    })
+  }
+  nooCheck = (checked,bool) => {
+    // console.log(id);
+    let {list} = this.state;
+    let list1 = list;
+    let arr = [];
+    let arr1 = [];
+    arr = list1.filter((e,i)=>e.checked == checked);
+    arr1 = list1.filter(e => e.checked != checked)
+    if(bool){
+      this.setState({
+        list:arr
+      })
+    }else{
+      this.setState({
+        list:arr1
+      })
+    }
+  }
+  okCheck = (checked) => {
+    let {list} = this.state;
+    let list1 = Object.assign(list);
+    let arr = [];
+    arr = list1.filter(e => {
+      return e.checked === checked;
+    })
+    // console.log(arr);
+    this.setState({
+      list:arr
+    })
+  }
   render(){
     let {list} = this.state;
     let list1 = Object.assign(list);
@@ -81,14 +130,22 @@ class App extends Component{
         id:e.id,
         checked:e.checked,
         changeChecked:this.changeChecked,
-        delt:this.delt
+        delt:this.delt,
+        changeText:this.changeText
       }
       return <Li {...data} />
     })
     let list2 = Object.assign(list);
     let all = list2.every(e => e.checked)
     // console.log(all);
-    return(
+    let list3 = Object.assign(list);
+    let n = 0;
+    for(var i=0;i<list3.length;i++){
+      if(!list3[i].checked){
+        n++;
+      }
+    }
+      return(
       <div>
         <HeadModel
           val={this.state.val}
@@ -106,6 +163,18 @@ class App extends Component{
               {item1}
             </ul>
         </section>
+        <footer
+          className="footer" >
+          <span className="todo-count">
+            <strong>{n}</strong>
+            <span>条未选中</span>
+          </span>
+        <Footli
+          list = {this.state.list}
+          nooCheck = {this.nooCheck}
+          okCheck = {this.okCheck}
+        />
+        </footer>
       </div>
     )
   }
