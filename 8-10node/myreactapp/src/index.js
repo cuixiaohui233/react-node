@@ -88,31 +88,24 @@ class App extends Component{
       class:'selected'
     })
   }
-  nooCheck = (checked,bool) => {
+  //显示
+  nooCheck = (checked) => {
     // console.log(id);
     let {list} = this.state;
     let list1 = list;
     let arr = [];
-    let arr1 = [];
+    // let arr1 = [];
     arr = list1.filter((e,i)=>e.checked == checked);
-    arr1 = list1.filter(e => e.checked != checked)
-    if(bool){
-      this.setState({
-        list:arr
-      })
-    }else{
-      this.setState({
-        list:arr1
-      })
-    }
+    this.setState({
+      list:arr
+    })
+    list = list;
   }
   okCheck = (checked) => {
     let {list} = this.state;
     let list1 = Object.assign(list);
     let arr = [];
-    arr = list1.filter(e => {
-      return e.checked === checked;
-    })
+    arr = list1.filter(e => e.checked != checked)
     // console.log(arr);
     this.setState({
       list:arr
@@ -145,6 +138,7 @@ class App extends Component{
         n++;
       }
     }
+    console.log(list)
       return(
       <div>
         <HeadModel

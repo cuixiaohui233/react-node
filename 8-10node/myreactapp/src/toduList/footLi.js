@@ -1,26 +1,24 @@
 import React,{Component} from "react";
 class Footli extends Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
-      class:''
+      data:this.props.list
     }
   }
   nooCheck = () => {
-    // let class1 = 'selected';
-    // this.setState({
-    //   class:class1
-    // })
-    this.props.list.filter((e)=>{
+    console.log(this.state.data);
+    this.state.data.filter((e)=>{
       if(e.checked){
-        this.props.nooCheck(e.checked,0)
+        this.props.nooCheck(e.checked)
       }
     });
   }
   okCheck = () => {
-    this.props.list.filter((e)=>{
+    console.log(this.state.data);
+    this.state.data.filter((e)=>{
       if(e.checked){
-        this.props.nooCheck(e.checked,1)
+        this.props.okCheck(e.checked)
       }
     });
   }

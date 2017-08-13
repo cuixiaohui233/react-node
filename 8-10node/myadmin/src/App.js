@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import Sider from './comm/side/Menu';
-import Header from './comm/Head/Head.js';
+import Menu1 from './comm/side/Menu1';
+import Header from './comm/Head/Head';
+import Nav from './comm/navigation/nav';
+import Consult from './comm/Consultation/Consult';
 
 class App extends Component {
   render() {
     return (
       <div id="root">
         <Header />
-        <Sider />
+        <Menu1 />
+        <Nav />
+        <Consult />
       </div>
     );
   }

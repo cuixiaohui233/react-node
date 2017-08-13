@@ -1,29 +1,15 @@
-import React,{Component} from "react";
-import { Menu, Icon } from 'antd';
+import React,{Component} from 'react';
+import  { Menu, Icon } from 'antd';
 import 'antd/dist/antd.css';
 import './side.css'
 const SubMenu = Menu.SubMenu;
-class Sider extends Component {
-  state = {
-    theme: 'Light',
-    current: '0',
-  }
-  handleClick = (e) => {
-    console.log('click ', e);
-    this.setState({
-      current: e.key,
-    });
-  }
-  render() {
-    return (
-      <div className="side-div">
-        <Menu
-          theme={this.state.theme}
-          onClick={this.handleClick}
-          defaultOpenKeys={['']}
-          selectedKeys={[this.state.current]}
-          mode="inline"
-        >
+// const MenuItemGroup = Menu.ItemGroup;
+
+class Menu1 extends Component{
+  render(){
+    return(
+      <div>
+        <Menu className="side-div" mode="vertical">
           <SubMenu key="sub1" title={<span><Icon type="mail" /><span>咨询管理</span></span>}>
             <Menu.Item key="1">咨询管理</Menu.Item>
           </SubMenu>
@@ -71,8 +57,7 @@ class Sider extends Component {
           </SubMenu>
         </Menu>
       </div>
-    );
+    )
   }
 }
-
-export default Sider
+export default Menu1
