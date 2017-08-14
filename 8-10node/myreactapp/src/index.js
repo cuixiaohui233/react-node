@@ -16,10 +16,16 @@ class App extends Component{
     this.state = {
       val:'',
       list:[
-        {id:1,info:'今天不开心',checked:false},
-        {id:2,info:'不为啥，别总问',checked:false}
-      ]
+      ],
+      view:'#/all'
     }
+  }
+
+  componentDidMount(){
+    this.setState({
+      list:getItem('data')
+    });
+    console.log('挂载之后');
   }
   changeChild = (newVal) =>{
     // console.log(newVal)
@@ -76,6 +82,8 @@ class App extends Component{
     list1.forEach((e,i)=>{
       if(e.id === id && val){
         e.info = val;
+      }else if(!val){
+        list1.splice(i,1);
       }
     })
     this.setState({
@@ -89,24 +97,19 @@ class App extends Component{
     })
   }
   //显示
-  nooCheck = (checked) => {
-    // console.log(id);
-    let {list} = this.state;
-    let list1 = list;
-    let arr = [];
-    // let arr1 = [];
-    arr = list1.filter((e,i)=>e.checked == checked);
+  nooCheck = (newView) => {
     this.setState({
-      list:arr
+      view:newView
     })
-    list = list;
   }
-  okCheck = (checked) => {
+  delChecked = () => {
     let {list} = this.state;
     let list1 = Object.assign(list);
-    let arr = [];
-    arr = list1.filter(e => e.checked != checked)
-    // console.log(arr);
+    let arr = null;
+    arr = list1.filter((e,i)=>{
+      return e.checked;
+    });
+    console.log(arr)
     this.setState({
       list:arr
     })
@@ -114,9 +117,27 @@ class App extends Component{
   render(){
     let {list} = this.state;
     let list1 = Object.assign(list);
+    if(list.length){
+      localStorage.setItem('data',JSON.stringify(list));
+    }
     // console.log(list1);
     let item1 = null;
-    item1 = list1.map((e,i)=>{
+    let filterView = Object.assign(list);
+    filterView = filterView.filter(e=>{
+      switch (this.state.view) {
+        case '#/active':
+          return !e.checked;
+          break;
+        case '#/completed':
+          return e.checked;
+          break;
+        default:
+          return Object.assign(list);
+          break;
+      }
+    });
+    // console.log(filterView)
+    item1 = filterView.map((e,i)=>{
       let data = {
         txt:e.info,
         key:i,
@@ -138,7 +159,36 @@ class App extends Component{
         n++;
       }
     }
-    console.log(list)
+    // console.log(list)
+    let changeAll = null
+    let footr = null;
+    if(list.length){
+      changeAll = (
+        <input
+          className="toggle-all"
+          type="checkbox"
+          checked={all}
+          onClick = {this.allChange}
+          onChange= {this.allChange}
+        />
+      )
+      let datax = {
+        list:this.state.list,
+        nooCheck:this.nooCheck,
+        okCheck:this.okCheck,
+        delChecked:this.delChecked
+      }
+      footr = (
+        <footer
+          className="footer" >
+          <span className="todo-count">
+            <strong>{n}</strong>
+            <span>条未选中</span>
+          </span>
+        <Footli {...datax} />
+        </footer>
+      )
+    }
       return(
       <div>
         <HeadModel
@@ -147,31 +197,19 @@ class App extends Component{
           changeValue={this.changeValue}
         />
         <section className="main">
-            <input
-              className="toggle-all"
-              type="checkbox"
-              checked={all}
-              onClick = {this.allChange}
-            />
+            {changeAll}
             <ul className="todo-list">
               {item1}
             </ul>
         </section>
-        <footer
-          className="footer" >
-          <span className="todo-count">
-            <strong>{n}</strong>
-            <span>条未选中</span>
-          </span>
-        <Footli
-          list = {this.state.list}
-          nooCheck = {this.nooCheck}
-          okCheck = {this.okCheck}
-        />
-        </footer>
+        {footr}
       </div>
     )
   }
+}
+
+function getItem(data){
+  return JSON.parse(localStorage.getItem(data)) || [{checked:false,info:'呵呵',id:1}];
 }
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();

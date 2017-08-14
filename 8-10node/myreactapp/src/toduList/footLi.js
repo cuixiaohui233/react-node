@@ -6,21 +6,12 @@ class Footli extends Component{
       data:this.props.list
     }
   }
-  nooCheck = () => {
-    console.log(this.state.data);
-    this.state.data.filter((e)=>{
-      if(e.checked){
-        this.props.nooCheck(e.checked)
-      }
-    });
+  nooCheck = (ev) => {
+    console.log(ev.target.hash);
+    this.props.nooCheck(ev.target.hash);
   }
-  okCheck = () => {
-    console.log(this.state.data);
-    this.state.data.filter((e)=>{
-      if(e.checked){
-        this.props.okCheck(e.checked)
-      }
-    });
+  click = () => {
+    this.props.delChecked();
   }
   render(){
     return (
@@ -28,7 +19,7 @@ class Footli extends Component{
       <ul className="filters">
         <li>
           <a href="#/all" className={this.state.class}
-            onClick = {this.allCheck}
+            onClick = {this.nooCheck}
           >全部</a>
         </li>
         <li>
@@ -38,12 +29,13 @@ class Footli extends Component{
         </li>
         <li>
           <a href="#/completed" className={this.state.class}
-            onClick = {this.okCheck}
+            onClick = {this.nooCheck}
           >已完成</a>
         </li>
       </ul>
       <button
         className="clear-completed"
+        onClick = {this.click}
       >
           清除完成项
       </button>

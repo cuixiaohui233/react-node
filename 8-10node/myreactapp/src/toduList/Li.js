@@ -18,6 +18,7 @@ class Li extends Component{
       db:true
     },()=>{
       this.db.focus();
+      this.db.value = this.props.txt;
     });
   }
   blur = (num) => {
@@ -41,7 +42,7 @@ class Li extends Component{
     }
     if(ev.keyCode === 27){
       let {id,txt} = this.props;
-      this.db.value = '';
+      this.db.value = txt;
       this.setState({
         db:false
       });

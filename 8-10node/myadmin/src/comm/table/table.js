@@ -1,5 +1,6 @@
 import React from 'react';
-import Tr from './Tr'
+import Tr from './Tr';
+import './table.css';
 class ShujuTable extends React.Component{
 
   render(){
@@ -27,7 +28,7 @@ class ShujuTable extends React.Component{
       let data = {
         key:i
       }
-      return <td {...data}>{e}</td>
+      return <th {...data}>{e}</th>
     })
     return(
       <table>

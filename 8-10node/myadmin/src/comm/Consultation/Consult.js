@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
 import PickerSizesDemo from '../Data/Date';
-import ShujuTable from '../table/table'
+import ShujuTable from '../table/table';
+import DelandAdd from '../DelandAdd/DelandAdd';
+import Page from '../page/page';
 class Consult extends Component{
   constructor(){
     super();
@@ -40,7 +42,9 @@ class Consult extends Component{
     return (
       <div>
         <PickerSizesDemo />
+        <DelandAdd />
         <ShujuTable data={this.state}/>
+        <Page />
       </div>
     )
   }
